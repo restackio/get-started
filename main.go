@@ -14,7 +14,7 @@ import (
 type model struct {
 	projectName  string
 	currentDir   string
-	packageRoot  string
+
 	installDeps  bool
 	startEngine  bool
 	openStudio   bool
@@ -26,15 +26,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	packageRoot, err := filepath.Abs(filepath.Dir(os.Args[0]))
-
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	m := model{
-		currentDir:  currentDir,
-		packageRoot: packageRoot,
+		currentDir: currentDir,
 	}
 
 	questions := []huh.Field{
@@ -65,13 +62,11 @@ func main() {
 	if err := m.copyFiles(); err != nil {
 		log.Fatal(err)
 	}
-
-	// Ask the remaining questions
-	for _, question := range questions[1:] {
-		err = huh.NewForm(huh.NewGroup(question)).Run()
-		if err != nil {
-			log.Fatal(err)
-		}
+	
+	// Ask the first question (project name)
+	err = huh.NewForm(huh.NewGroup(questions[3])).Run()
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	if m.installDeps {
@@ -79,6 +74,15 @@ func main() {
 			log.Fatal(err)
 		}
 	}
+
+	// Ask the remaining questions
+	for _, question := range questions[2:] {
+		err = huh.NewForm(huh.NewGroup(question)).Run()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
 
 	if m.startEngine {
 		if err := m.startRestackEngine(); err != nil {
@@ -91,7 +95,7 @@ Project created successfully!
 
 We suggest that you begin with following commands:
 
-To navigate to the project, run: cd %s
+To navigate to the project, run: {{blue "cd %s"}}
 
 To start the service, run: go run .
 
@@ -101,27 +105,44 @@ To schedule a workflow, run: go run scheduleWorkflow.go
 
 func (m model) copyFiles() error {
 	targetDir := filepath.Join(m.currentDir, m.projectName)
-	filesToCopy := []string{"src", "scheduleWorkflow.go", "go.mod"}
+	tempDir := filepath.Join(m.currentDir, "temp")
+	repoName := "https://github.com/restackio/examples-typescript.git"
 
-	fmt.Println("Copying files to", targetDir)
+	fmt.Printf("Cloning repository to %s\n", tempDir)
 
-	for _, file := range filesToCopy {
-		sourceFile := filepath.Join(m.packageRoot, file)
-		targetFile := filepath.Join(targetDir, file)
-
-		if err := copyFile(sourceFile, targetFile); err != nil {
-			fmt.Println("Error copying file", file, ":", err)
-			return err
-		}
+	cmd := exec.Command("git", "clone", repoName, tempDir)
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Printf("Error cloning repository: %v\n", err)
+		fmt.Printf("Git output: %s\n", string(output))
+		return fmt.Errorf("git clone failed: %v - %s", err, string(output))
 	}
-	fmt.Println("Files copied successfully")
+
+	fmt.Printf("Moving files from %s to %s\n", tempDir, targetDir)
+
+	cmd = exec.Command("mv", tempDir+"/examples/hello", targetDir)
+	output, err = cmd.CombinedOutput()
+	if err != nil {
+		fmt.Printf("Error moving files: %v\n", err)
+		fmt.Printf("Command output: %s\n", string(output))
+		return fmt.Errorf("move files failed: %v - %s", err, string(output))
+	}
+
+	cmd = exec.Command("rm", "-rf", tempDir)
+	output, err = cmd.CombinedOutput()
+	if err != nil {
+		fmt.Printf("Error removing temp directory: %v\n", err)
+		fmt.Printf("Command output: %s\n", string(output))
+	}
+
+	fmt.Println("Repository cloned successfully")
 
 	return nil
 }
 
 func (m model) installDependencies() error {
 	targetDir := filepath.Join(m.currentDir, m.projectName)
-	cmd := exec.Command("go", "mod", "tidy")
+	cmd := exec.Command("npm", "install")
 	cmd.Dir = targetDir
 	if err := cmd.Run(); err != nil {
 		return err
