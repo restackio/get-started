@@ -1,5 +1,11 @@
 package main
 
+// TODO
+// [] python
+// [] ts
+// [] stdout
+// [] colors
+
 import (
 	"fmt"
 	"log"
@@ -62,9 +68,9 @@ func main() {
 	if err := m.copyFiles(); err != nil {
 		log.Fatal(err)
 	}
-	
-	// Ask the first question (project name)
-	err = huh.NewForm(huh.NewGroup(questions[3])).Run()
+
+	// Ask the second question (install dependencies)
+	err = huh.NewForm(huh.NewGroup(questions[1])).Run()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -75,10 +81,26 @@ func main() {
 		}
 	}
 
-	// Ask the remaining questions
-	for _, question := range questions[2:] {
-		err = huh.NewForm(huh.NewGroup(question)).Run()
-		if err != nil {
+	// Ask the third question (start engine)
+	err = huh.NewForm(huh.NewGroup(questions[2])).Run()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if m.startEngine {
+		if err := m.startRestackEngine(); err != nil {
+			log.Fatal(err)
+		}
+	}
+
+	// Ask the fourth question (open studio)
+	err = huh.NewForm(huh.NewGroup(questions[3])).Run()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if m.openStudio {
+		if err := m.openRestackStudio(); err != nil {
 			log.Fatal(err)
 		}
 	}
@@ -95,7 +117,7 @@ Project created successfully!
 
 We suggest that you begin with following commands:
 
-To navigate to the project, run: {{blue "cd %s"}}
+To navigate to the project, run: cd %s
 
 To start the service, run: go run .
 
@@ -161,14 +183,15 @@ func (m model) startRestackEngine() error {
 
 	fmt.Println("Restack Engine Studio started on http://localhost:5233")
 
-	if m.openStudio {
-		time.Sleep(5 * time.Second) // Wait for the server to start
-		cmd = exec.Command("open", "http://localhost:5233")
-		if err := cmd.Run(); err != nil {
-			return err
-		}
-	}
+	return nil
+}
 
+func (m model) openRestackStudio() error {
+	time.Sleep(5 * time.Second) // Wait for the server to start
+	cmd := exec.Command("open", "http://localhost:5233")
+	if err := cmd.Run(); err != nil {
+		return err
+	}
 	return nil
 }
 
