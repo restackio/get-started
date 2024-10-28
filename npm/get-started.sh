@@ -19,8 +19,8 @@ else
     exit 1
 fi
 
-# Get the latest version
-VERSION=$(node -p "require('./package.json').version")
+# Get the version from package.json
+VERSION=$(node -p "require('$(dirname "$0")/package.json').version")
 BINARY_URL="https://github.com/restackio/get-started/releases/download/v${VERSION}/${BINARY_NAME}"
 BINARY_PATH="./${BINARY_NAME}"
 
