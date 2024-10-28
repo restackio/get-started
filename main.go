@@ -144,7 +144,7 @@ func (m model) copyFiles() error {
 
 	fmt.Printf("Moving files from %s to %s\n", tempDir, targetDir)
 
-	cmd = exec.Command("mv", tempDir+"/examples/hello", targetDir)
+	cmd = exec.Command("mv", tempDir+"/examples/openai", targetDir)
 	output, err = cmd.CombinedOutput()
 	if err != nil {
 		fmt.Printf("Error moving files: %v\n", err)

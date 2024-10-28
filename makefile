@@ -1,5 +1,5 @@
 BINARY_NAME=restack-get-started
-VERSION=1.0.0
+VERSION=0.6.0
 BUILD_DIR=build
 
 .PHONY: all linux macos clean

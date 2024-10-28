@@ -4,8 +4,8 @@
 ARCH=$(uname -m)
 PLATFORM=$(uname -s)
 
-echo "Platform: $PLATFORM"
-echo "Architecture: $ARCH"
+# echo "Platform: $PLATFORM"
+# echo "Architecture: $ARCH"
 
 # Determine binary path based on platform and architecture
 if [ "$PLATFORM" = "Darwin" ]; then
@@ -19,7 +19,7 @@ else
     exit 1
 fi
 
-echo "Binary path: $BINARY_PATH"
+# echo "Binary path: $BINARY_PATH"
 
 # Check if binary exists
 if [ ! -f "$BINARY_PATH" ]; then

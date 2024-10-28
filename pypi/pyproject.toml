@@ -1,17 +1,16 @@
 [tool.poetry]
 name = "restack_get_started"
-version = "0.1.0"
+version = "0.6.0"
 description = "A package to get started with Restack"
 authors = ["Your Name <your.email@example.com>"]
 license = "MIT"
-readme = "README.md"
-packages = [{include = "restack_get_started", from = "src"}]
+packages = [{include = "restack_get_started"}]
 
 [tool.poetry.dependencies]
 python = "^3.7"
 
 [tool.poetry.scripts]
-restack_get_started = "restack_get_started.get_started:detect_architecture_and_invoke"
+restack_get_started = "restack_get_started.main:restack_get_started"
 
 [build-system]
 requires = ["poetry-core"]
