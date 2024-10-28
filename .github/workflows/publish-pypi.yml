@@ -1,0 +1,39 @@
+name: Publish to PyPI
+
+on:
+  workflow_run:
+    workflows: ["Build Go and Create GitHub Release"]
+    types:
+      - completed
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Configure Poetry
+        run: |
+          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+
+      - name: Install dependencies
+        working-directory: ./pypi
+        run: poetry install
+
+      - name: Build package
+        working-directory: ./pypi
+        run: poetry build
+
+      - name: Publish package
+        working-directory: ./pypi
+        run: poetry publish

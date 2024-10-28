@@ -14,16 +14,16 @@ def restack_get_started():
     # Get system architecture and platform
     arch = os.uname().machine
     platform_name = os.uname().sysname
-    version = importlib.metadata.version("restack-get-started")
+    version = importlib.metadata.version("restackio.get-started")
     print(f"Version: {version}")
 
     # Determine binary path based on platform and architecture
     if platform_name == "Darwin":
         binary_name = "restack-get-started-darwin-amd64"
-        binary_url = f"https://github.com/restackio/get-started/releases/download/{version}/{binary_name}"
+        binary_url = f"https://github.com/restackio/get-started/releases/download/v{version}/{binary_name}"
     elif platform_name == "Linux" and arch == "x86_64":
         binary_name = "restack-get-started-linux-amd64"
-        binary_url = f"https://github.com/restackio/get-started/releases/download/{version}/{binary_name}"
+        binary_url = f"https://github.com/restackio/get-started/releases/download/v{version}/{binary_name}"
     else:
         print("Unsupported platform")
         return 1

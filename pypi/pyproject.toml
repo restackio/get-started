@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "restack_get_started"
+name = "restackio.get-started"
 version = "0.6.0"
 description = "A package to get started with Restack"
 authors = ["Your Name <your.email@example.com>"]
@@ -10,7 +10,7 @@ packages = [{include = "restack_get_started"}]
 python = "^3.7"
 
 [tool.poetry.scripts]
-restack_get_started = "restack_get_started.main:restack_get_started"
+'restackio.get-started' = "restack_get_started.main:restack_get_started"
 
 [build-system]
 requires = ["poetry-core"]
