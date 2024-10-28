@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "get-started": "get-started.js"
+    "get-started": "get-started.sh"
   },
   "author": "",
   "license": "ISC"

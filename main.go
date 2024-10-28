@@ -1,10 +1,12 @@
 package main
 
 // TODO
-// [] python
-// [] ts
+// [] release python
+// [] release ts
 // [] stdout
 // [] colors
+// [] cleanup temp if failed
+// [] add --verbose
 
 import (
 	"fmt"
