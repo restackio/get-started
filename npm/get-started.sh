@@ -7,23 +7,27 @@ PLATFORM=$(uname -s)
 # echo "Platform: $PLATFORM"
 # echo "Architecture: $ARCH"
 
-# Determine binary path based on platform and architecture
+# Determine binary name based on platform and architecture
 if [ "$PLATFORM" = "Darwin" ]; then
-    BINARY_PATH="./restack-get-started-darwin-amd64"
+    BINARY_NAME="restack-get-started-darwin-amd64"
 elif [ "$PLATFORM" = "Linux" ]; then
     if [ "$ARCH" = "x86_64" ]; then
-        BINARY_PATH="./restack-get-started-linux-amd64"
+        BINARY_NAME="restack-get-started-linux-amd64"
     fi
 else
     echo "Unsupported platform"
     exit 1
 fi
 
-# echo "Binary path: $BINARY_PATH"
+# Get the latest version
+VERSION=$(node -p "require('./package.json').version")
+BINARY_URL="https://github.com/restackio/get-started/releases/download/v${VERSION}/${BINARY_NAME}"
+BINARY_PATH="./${BINARY_NAME}"
 
-# Check if binary exists
-if [ ! -f "$BINARY_PATH" ]; then
-    echo "Error: Binary not found at $BINARY_PATH"
+# Download the binary
+echo "Downloading from ${BINARY_URL}..."
+if ! curl -L -o "$BINARY_PATH" "$BINARY_URL"; then
+    echo "Error downloading binary"
     exit 1
 fi
 
