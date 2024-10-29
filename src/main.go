@@ -1,18 +1,5 @@
 package main
 
-// TODO
-// [x] release python
-// [x] release ts
-// [x] stdout
-// [x] colors
-// [x] add branch python <> ts
-// [] use groups
-// [] cleanup temp if failed
-// [] add --verbose
-// [] Readme
-// [] simplify release process
-// [] add means to test locally
-
 import (
 	"log"
 	"os"

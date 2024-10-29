@@ -1,23 +1,15 @@
-## How to develop with Go sources
+# Restack Get Started
+
+Get started with Restack Python or Typescript boilerplates
+
+Python:
 
 ```bash
-go run ./src --lang python
+pipx run restackio.get-started
 ```
 
-## How to develop with Go sources
+Typescript:
 
 ```bash
-go run ./src --lang python
-```
-
-## How to test NPM locally
-
-```bash
-npx ./npm
-```
-
-## How to test PyPi locally
-
-```bash
-pipx run --path restack_get_started/main.py
+npx @restackio/get-started
 ```
