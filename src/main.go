@@ -4,13 +4,14 @@ package main
 // [x] release python
 // [x] release ts
 // [x] stdout
-// [] add branch python <> ts
+// [x] colors
+// [x] add branch python <> ts
 // [] use groups
-// [] colors
 // [] cleanup temp if failed
 // [] add --verbose
 // [] Readme
 // [] simplify release process
+// [] add means to test locally
 
 import (
 	"log"

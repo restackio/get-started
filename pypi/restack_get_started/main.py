@@ -38,7 +38,7 @@ def restack_get_started():
     # Make binary executable and run it
     try:
         os.chmod(binary_name, 0o755)
-        result = _run(f"./{binary_name}")
+        result = _run(f"./{binary_name} --lang python")
         return result
     except Exception as e:
         print(f"Error executing binary: {e}")

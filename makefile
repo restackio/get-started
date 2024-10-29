@@ -1,5 +1,5 @@
 BINARY_NAME=restack-get-started
-VERSION=0.6.7
+VERSION=0.6.8
 BUILD_DIR=build
 
 .PHONY: all linux macos clean
@@ -7,10 +7,10 @@ BUILD_DIR=build
 all: linux macos
 
 linux:
-	GOOS=linux GOARCH=amd64 go build -o $(BUILD_DIR)/$(BINARY_NAME)-linux-amd64 main.go
+	GOOS=linux GOARCH=amd64 go build -o $(BUILD_DIR)/$(BINARY_NAME)-linux-amd64 ./src
 
 macos:
-	GOOS=darwin GOARCH=amd64 go build -o $(BUILD_DIR)/$(BINARY_NAME)-darwin-amd64 main.go
+	GOOS=darwin GOARCH=amd64 go build -o $(BUILD_DIR)/$(BINARY_NAME)-darwin-amd64 ./src
 
 clean:
 	rm -rf $(BUILD_DIR)
