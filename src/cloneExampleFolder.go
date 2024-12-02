@@ -8,8 +8,8 @@ import (
 )
 
 var examplePaths = map[string]string{
-	"typescript": "/examples/openai",
-	"python":     "/examples/get-started",
+	"typescript": "/openai",
+	"python":     "/get_started",
 }
 
 var repositoryUrls = map[string]string{
