@@ -6,7 +6,7 @@
 - [x] Bring back Colors
 - [x] Add logic branch python <> ts
 - [x] Readmes
-- [x] Should contain script about Studio with “open [http://localhost:5233](http://localhost:5233/)”
+- [x] Should contain script about Developer UI with “open [http://localhost:5233](http://localhost:5233/)”
 - [ ] Shrink python and ts repos filesize - too large to clone
 - [ ] Better communication
 - [ ] Use huh groups

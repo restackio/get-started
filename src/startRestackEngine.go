@@ -19,7 +19,7 @@ func (m model) startRestackEngine() error {
 		return err
 	}
 
-	fmt.Println("Restack Engine Studio started on http://localhost:5233")
+	fmt.Println("Restack Developer UI started on http://localhost:5233")
 
 	return nil
 }
