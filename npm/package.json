@@ -1,6 +1,6 @@
 {
   "name": "@restackio/get-started",
-  "version": "v0.6.11",
+  "version": "0.6.11",
   "description": "A getting started command which will help with a first application using Restack framework",
   "bin": {
     "get-started": "get-started.sh"
