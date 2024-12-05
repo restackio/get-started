@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 var serviceCmds = map[string]string{
-	"typescript": "npm run services",
+	"typescript": "npm run dev",
 	"python":     "poetry run services",
 }
 

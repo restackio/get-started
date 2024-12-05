@@ -13,7 +13,7 @@ type model struct {
 	currentDir   string
 	installDeps  bool
 	startEngine  bool
-	openStudio   bool
+	openUI       bool
 }
 
 func main() {
@@ -27,25 +27,25 @@ func main() {
 	m := model{
 		currentDir: currentDir,
 		language:   language,
-		projectName: "restack-get-started",
+		projectName: "restack-your-project",
 	}
 
 	questions := []huh.Field{
 		huh.NewInput().
-			Title("Welcome to Restack Get Started").
+			Title("Welcome to Restack. Let's get you started.").
 			Description("Enter project name:").
-			Placeholder("restack-get-started").
+			Placeholder("restack-your-project").
 			CharLimit(50).
 			Value(&m.projectName),
 		huh.NewConfirm().
 			Title("Install dependencies?").
 			Value(&m.installDeps),
 		huh.NewConfirm().
-			Title("Start Restack Engine?").
+			Title("Start Restack Developer UI?").
 			Value(&m.startEngine),
 		huh.NewConfirm().
-			Title("Open Restack Engine Studio?").
-			Value(&m.openStudio),
+			Title("Open Restack Developer UI?").
+			Value(&m.openUI),
 	}
 
 	// Ask the first question (project name)
@@ -83,14 +83,14 @@ func main() {
 		}
 	}
 
-	// Ask the fourth question (open studio)
+	// Ask the fourth question (open developer UI)
 	err = huh.NewForm(huh.NewGroup(questions[3])).Run()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if m.openStudio {
-		if err := m.openRestackStudio(); err != nil {
+	if m.openUI {
+		if err := m.openRestackUI(); err != nil {
 			log.Fatal(err)
 		}
 	}
