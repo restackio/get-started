@@ -4,7 +4,7 @@ import "fmt"
 
 var serviceCmds = map[string]string{
 	"typescript": "npm run dev",
-	"python":     "poetry run services",
+	"python":     "poetry run dev",
 }
 
 var scheduleCmds = map[string]string{
@@ -17,7 +17,7 @@ func (m model) printSuccess() {
 	scheduleCmd := scheduleCmds[m.language]
 
 	const (
-		blue = "\033[34m"
+		blue  = "\033[34m"
 		reset = "\033[0m"
 	)
 
@@ -34,6 +34,6 @@ To navigate to the project, run: %s
 
 To start the service, run: %s
 
-To schedule a workflow, run: %s
+To schedule a workflow, use the UI or run: %s
 `, cdCmd, serviceStr, scheduleStr)
 }

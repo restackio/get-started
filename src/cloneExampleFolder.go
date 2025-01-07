@@ -8,8 +8,8 @@ import (
 )
 
 var examplePaths = map[string]string{
-	"typescript": "/openai",
-	"python":     "/get_started",
+	"typescript": "/quickstart",
+	"python":     "/quickstart",
 }
 
 var repositoryUrls = map[string]string{
@@ -20,7 +20,7 @@ var repositoryUrls = map[string]string{
 func (m model) cloneExampleFolder() error {
 	targetDir := filepath.Join(m.currentDir, m.projectName)
 	tempDir := filepath.Join(m.currentDir, "temp")
-	
+
 	repoName := repositoryUrls[m.language]
 
 	cmd := exec.Command("git", "clone", repoName, tempDir)

@@ -8,12 +8,12 @@ import (
 )
 
 type model struct {
-	language     string
-	projectName  string
-	currentDir   string
-	installDeps  bool
-	startEngine  bool
-	openUI       bool
+	language    string
+	projectName string
+	currentDir  string
+	installDeps bool
+	startEngine bool
+	openUI      bool
 }
 
 func main() {
@@ -25,8 +25,8 @@ func main() {
 	}
 
 	m := model{
-		currentDir: currentDir,
-		language:   language,
+		currentDir:  currentDir,
+		language:    language,
 		projectName: "restack-your-project",
 	}
 
