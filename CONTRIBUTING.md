@@ -25,7 +25,7 @@ pipx run --path restack_get_started/main.py
 ## How to release
 
 1. Increment version in all occurences (makefile, pyproject, package.json)
-2. `git tag v0.6.10`
+2. `git tag v0.6.12`
 3. `git push --tags`
 
 At this moment, Github detects new version tag and builds and publishes
