@@ -56,7 +56,7 @@ func main() {
 	}
 
 	// Ask to start Restack
-	err = huh.NewForm(huh.NewGroup(questions[2])).Run()
+	err = huh.NewForm(huh.NewGroup(questions[1])).Run()
 	if err != nil {
 		log.Fatal(err)
 	}
