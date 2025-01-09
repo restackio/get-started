@@ -1,0 +1,23 @@
+{
+  "name": "quickstart",
+  "version": "0.0.1",
+  "description": "Restack Quickstart example",
+  "scripts": {
+    "dev": "open-cli http://localhost:5233 && tsx watch --include src src/services.ts",
+    "build": "tsc --build",
+    "clean": "rm -rf node_modules",
+    "schedule-workflow": "tsx scheduleWorkflow.ts"
+  },
+  "dependencies": {
+    "@restackio/ai": "^0.0.96",
+    "@temporalio/workflow": "1.11.3"
+  },
+  "devDependencies": {
+    "@types/node": "20.16.9",
+    "dotenv-cli": "^7.4.2",
+    "open-cli": "^8.0.0",
+    "prettier": "3.3.3",
+    "tsx": "4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

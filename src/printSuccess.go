@@ -2,38 +2,39 @@ package main
 
 import "fmt"
 
+var depsCmds = map[string]string{
+	"typescript": "npm install",
+	"python":     "poetry env use 3.10 && poetry shell then poetry install",
+}
+
 var serviceCmds = map[string]string{
 	"typescript": "npm run dev",
 	"python":     "poetry run dev",
 }
 
-var scheduleCmds = map[string]string{
-	"typescript": "npm run schedule",
-	"python":     "poetry run schedule",
-}
-
 func (m model) printSuccess() {
 	serviceCmd := serviceCmds[m.language]
-	scheduleCmd := scheduleCmds[m.language]
-
+	depsCmd := depsCmds[m.language]
 	const (
 		blue  = "\033[34m"
 		reset = "\033[0m"
 	)
 
 	cdCmd := blue + "cd " + m.projectName + reset
+	depsStr := blue + depsCmd + reset
 	serviceStr := blue + serviceCmd + reset
-	scheduleStr := blue + scheduleCmd + reset
 
 	fmt.Printf(`
 Project created successfully!
 
 We suggest that you begin with following commands:
 
-To navigate to the project, run: %s
+Navigate to the project, run: %s
 
-To start the service, run: %s
+Install dependencies, run: %s
 
-To schedule a workflow, use the UI or run: %s
-`, cdCmd, serviceStr, scheduleStr)
+Start the services, run: %s
+
+And run workflows using the UI
+`, cdCmd, depsStr, serviceStr)
 }
