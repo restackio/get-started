@@ -5,18 +5,27 @@ import (
 	"os"
 
 	"github.com/charmbracelet/huh"
+	"github.com/posthog/posthog-go"
 )
 
 type model struct {
-	language     string
-	projectName  string
-	currentDir   string
-	installDeps  bool
-	startRestack bool
-	openUI       bool
+	language        string
+	applicationName string
+	currentDir      string
+	installDeps     bool
+	startRestack    bool
+	openUI          bool
 }
 
 func main() {
+	// Initialize PostHog client
+	client := posthog.NewWithConfig(
+		"phc_QAChHsfb5cq65wolzsxiJ6cZk1V9IcfGqCidBWhaLgK",
+		posthog.Config{
+			Endpoint: "https://us.i.posthog.com",
+		},
+	)
+	defer client.Close()
 
 	language := validateLanguage()
 	currentDir, err := os.Getwd()
@@ -25,30 +34,38 @@ func main() {
 	}
 
 	m := model{
-		currentDir:   currentDir,
-		language:     language,
-		projectName:  "restack-your-project",
-		startRestack: true,
-		openUI:       true,
+		currentDir:      currentDir,
+		language:        language,
+		applicationName: "restack-app",
+		startRestack:    true,
+		openUI:          true,
 	}
 
 	questions := []huh.Field{
 		huh.NewInput().
 			Title("Welcome to Restack. Let's get you started.").
-			Description("Enter project name:").
-			Placeholder("restack-your-project").
+			Description("Enter application name:").
+			Placeholder("restack-app").
 			CharLimit(50).
-			Value(&m.projectName),
+			Value(&m.applicationName),
 		huh.NewConfirm().
-			Title("Start Restack Developer UI? (recommended)").
+			Title("Start Restack in Docker? (recommended)").
 			Value(&m.startRestack),
 	}
 
-	// Ask the first question (project name)
+	// Ask the first question (application name)
 	err = huh.NewForm(huh.NewGroup(questions[0])).Run()
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// Trigger an event after getting the project name
+	client.Enqueue(posthog.Capture{
+		Event: "get_started",
+		Properties: posthog.NewProperties().
+			Set("application_name", m.applicationName).
+			Set("language", m.language),
+	})
 
 	// Copy files immediately after getting the project name
 	if err := m.cloneBoilerplates(); err != nil {

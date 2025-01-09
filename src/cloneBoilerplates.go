@@ -18,7 +18,7 @@ var repositoryUrls = map[string]string{
 }
 
 func (m model) cloneBoilerplates() error {
-	targetDir := filepath.Join(m.currentDir, m.projectName)
+	targetDir := filepath.Join(m.currentDir, m.applicationName)
 	tempDir := filepath.Join(m.currentDir, "temp")
 
 	repoName := repositoryUrls[m.language]
