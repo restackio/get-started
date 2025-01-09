@@ -51,7 +51,7 @@ func main() {
 	}
 
 	// Copy files immediately after getting the project name
-	if err := m.copyBoilerplates(); err != nil {
+	if err := m.cloneBoilerplates(); err != nil {
 		log.Fatal(err)
 	}
 
