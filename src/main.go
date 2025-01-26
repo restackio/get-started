@@ -19,12 +19,15 @@ type model struct {
 
 func main() {
 	// Initialize PostHog client
-	client := posthog.NewWithConfig(
+	client, err := posthog.NewWithConfig(
 		"phc_QAChHsfb5cq65wolzsxiJ6cZk1V9IcfGqCidBWhaLgK",
 		posthog.Config{
 			Endpoint: "https://us.i.posthog.com",
 		},
 	)
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer client.Close()
 
 	language := validateLanguage()
