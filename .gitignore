@@ -1,4 +1,13 @@
-.DS_Store
+#python
 __pycache__
+.pytest_cache
+venv
+poetry.lock
+uv.lock
+
+#general
 dist
 build
+.env
+.vscode
+.DS_Store

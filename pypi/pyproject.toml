@@ -1,18 +1,21 @@
-[tool.poetry]
+[project]
 name = "restackio.get-started"
 version = "0.6.18"
-readme = "README.md"
 description = "A package to get started with Restack"
-authors = ["Your Name <your.email@example.com>"]
+authors = [{ name = "Your Name", email = "your.email@example.com" }]
+requires-python = "~=3.7"
+readme = "README.md"
 license = "MIT"
-packages = [{include = "restack_get_started"}]
 
-[tool.poetry.dependencies]
-python = "^3.7"
+[project.scripts]
+"get-started" = "restack_get_started.main:restack_get_started"
 
-[tool.poetry.scripts]
-'restackio.get-started' = "restack_get_started.main:restack_get_started"
+[tool.hatch.build.targets.sdist]
+include = ["restack_get_started"]
+
+[tool.hatch.build.targets.wheel]
+include = ["restack_get_started"]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
