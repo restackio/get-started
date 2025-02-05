@@ -4,12 +4,12 @@ import "fmt"
 
 var depsCmds = map[string]string{
 	"typescript": "npm install",
-	"python":     "poetry install",
+	"python":     "uv sync",
 }
 
 var serviceCmds = map[string]string{
 	"typescript": "npm run dev",
-	"python":     "poetry run dev",
+	"python":     "uv run dev",
 }
 
 func (m model) printSuccess() {
@@ -26,7 +26,7 @@ func (m model) printSuccess() {
 
 	pythonCmd := ""
 	if m.language == "python" {
-		pythonCmd = blue + "Start Python shell, run: poetry env use 3.10 && poetry shell" + reset
+		pythonCmd = blue + "Start Python shell, run: uv venv && source .venv/bin/activate" + reset
 	}
 
 	fmt.Printf(`
