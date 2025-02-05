@@ -12,6 +12,7 @@ type model struct {
 	language        string
 	applicationName string
 	currentDir      string
+	example         string
 	installDeps     bool
 	startRestack    bool
 	openUI          bool
@@ -46,7 +47,7 @@ func main() {
 
 	questions := []huh.Field{
 		huh.NewInput().
-			Title("Welcome to Restack. Let's get you started.").
+			Title("Welcome to Restack Setup! Let's get started.").
 			Description("Enter application name:").
 			Placeholder("restack-app").
 			CharLimit(50).
@@ -70,7 +71,36 @@ func main() {
 			Set("language", m.language),
 	})
 
-	// Copy files immediately after getting the project name
+	// --- New dropdown for selecting the example template ---
+	var exampleQuestion huh.Field
+	if m.language == "typescript" {
+		exampleQuestion = huh.NewSelect[string]().
+			Title("Select template").
+			Description("Choose from our TypeScript examples").
+			Options([]huh.Option[string]{
+				{Value: "/agent-todo", Key: "Default agent (recommended)"},
+				{Value: "/agent-chat", Key: "Empty agent"},
+			}...).
+			Value(&m.example)
+	} else if m.language == "python" {
+		exampleQuestion = huh.NewSelect[string]().
+			Title("Select template").
+			Description("Choose from our Python examples").
+			Options([]huh.Option[string]{
+				{Value: "/agent_todo", Key: "Default agent (recommended)"},
+				{Value: "/agent_chat", Key: "Empty agent"},
+			}...).
+			Value(&m.example)
+	}
+
+	// Ask the dropdown question for example selection
+	err = huh.NewForm(huh.NewGroup(exampleQuestion)).Run()
+	if err != nil {
+		log.Fatal(err)
+	}
+	// --- End dropdown section ---
+
+	// Copy files immediately after getting the project name and example selection
 	if err := m.cloneBoilerplates(); err != nil {
 		log.Fatal(err)
 	}

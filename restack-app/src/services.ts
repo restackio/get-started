@@ -1,14 +1,24 @@
-import { hello } from "./functions";
+import {
+  llmChat,
+  createTodo,
+  getTools,
+  getRandom,
+  getResult,
+} from "./functions";
 import { client } from "./client";
 
 async function services() {
+  const agentsPath = require.resolve("./agents");
   const workflowsPath = require.resolve("./workflows");
   try {
     await Promise.all([
-      // Start service with current workflows and functions
       client.startService({
-        workflowsPath,
-        functions: { hello },
+        agentsPath: agentsPath,
+        functions: { llmChat, createTodo, getTools },
+      }),
+      client.startService({
+        workflowsPath: workflowsPath,
+        functions: { getRandom, getResult },
       }),
     ]);
 

@@ -7,14 +7,9 @@ import (
 	"path/filepath"
 )
 
-var examplePaths = map[string]string{
-	"typescript": "/boilerplates/typescript",
-	"python":     "/boilerplates/python",
-}
-
 var repositoryUrls = map[string]string{
-	"typescript": "https://github.com/restackio/get-started.git",
-	"python":     "https://github.com/restackio/get-started.git",
+	"typescript": "https://github.com/restackio/examples-typescript.git",
+	"python":     "https://github.com/restackio/examples-python.git",
 }
 
 func (m model) cloneBoilerplates() error {
@@ -33,7 +28,7 @@ func (m model) cloneBoilerplates() error {
 
 	fmt.Printf("Moving files from %s to %s\n", tempDir, targetDir)
 
-	cmd = exec.Command("mv", tempDir+examplePaths[m.language], targetDir)
+	cmd = exec.Command("mv", tempDir+m.example, targetDir)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err = cmd.Run()
