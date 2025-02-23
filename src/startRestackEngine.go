@@ -18,7 +18,7 @@ func (m model) startRestackEngine() error {
 	cmd.Stderr = os.Stderr
 	cmd.Run()
 
-	cmd = exec.Command("docker", "run", "-d", "--pull", "always", "--name", "restack", "-p", "5233:5233", "-p", "6233:6233", "-p", "7233:7233", "ghcr.io/restackio/restack:main")
+	cmd = exec.Command("docker", "run", "-d", "--pull", "always", "--name", "restack", "-p", "5233:5233", "-p", "6233:6233", "-p", "7233:7233", "-p", "9233:9233", "ghcr.io/restackio/restack:main")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
