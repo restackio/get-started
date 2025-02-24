@@ -9,10 +9,17 @@ func validateLanguage() string {
 	var lang string
 	found := false
 
-	for i, arg := range os.Args[1:] {
-		if arg == "--lang" && i+1 < len(os.Args[1:]) {
-			lang = os.Args[i+2]
-			found = true
+	// Iterate over os.Args starting from index 1 (skip program name)
+	for i := 1; i < len(os.Args); i++ {
+		if os.Args[i] == "--lang" {
+			if i+1 < len(os.Args) {
+				lang = os.Args[i+1]
+				found = true
+			} else {
+				// Flag provided without an accompanying value
+				fmt.Println("Error: --lang flag provided without a value")
+				os.Exit(1)
+			}
 			break
 		}
 	}
