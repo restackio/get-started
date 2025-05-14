@@ -7,13 +7,11 @@ import (
 	"path/filepath"
 )
 
-// Type to store repository information
 type RepoInfo struct {
 	URL      string
 	IsAtRoot bool
 }
 
-// Map to store the repository information for each example template
 var repositoryInfos = map[string]map[string]RepoInfo{
 	"typescript": {
 		"agent-todo":    {URL: "https://github.com/restackio/examples-typescript.git", IsAtRoot: false},
@@ -30,8 +28,7 @@ func (m model) cloneBoilerplates() error {
 	targetDir := filepath.Join(m.currentDir, m.applicationName)
 	tempDir := filepath.Join(m.currentDir, "temp")
 
-	// Get the repository information for the selected language and example
-	exampleName := m.example[1:] // Remove the leading slash from the example name
+	exampleName := m.example[1:]
 	repoInfo := repositoryInfos[m.language][exampleName]
 
 	fmt.Printf("Repository URL: %s, Is at root: %v\n", repoInfo.URL, repoInfo.IsAtRoot)
