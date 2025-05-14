@@ -13,7 +13,6 @@ type model struct {
 	applicationName string
 	currentDir      string
 	example         string
-	installDeps     bool
 	startRestack    bool
 	openUI          bool
 }
@@ -80,6 +79,7 @@ func main() {
 			Options([]huh.Option[string]{
 				{Value: "/agent-todo", Key: "Default agent (recommended)"},
 				{Value: "/agent-chat", Key: "Empty agent"},
+				{Value: "/agent-scaling", Key: "Scaling agent"},
 			}...).
 			Value(&m.example)
 	} else if m.language == "python" {
